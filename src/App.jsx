@@ -1,7 +1,19 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/home/Home";
+import NoPage from "./pages/noPage/NoPage";
 
 const App = () => {
-  return <div className="bg-red-700">App</div>;
+  return (
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/*" element={<NoPage />} />
+        </Routes>
+      </Router>
+    </>
+  );
 };
 
 export default App;
