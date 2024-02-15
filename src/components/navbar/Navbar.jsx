@@ -16,7 +16,7 @@ const Navbar = () => {
         <Link to={"/signup"}>Signup</Link>
       </li>
       <li>
-        <Link to={"/"}>Kamal</Link>
+        <Link to={"/user-dashboard"}>Arth</Link>
       </li>
       {/* Admin */}
       {/* <li>
