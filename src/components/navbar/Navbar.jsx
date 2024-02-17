@@ -19,9 +19,9 @@ const Navbar = () => {
         <Link to={"/user-dashboard"}>Arth</Link>
       </li>
       {/* Admin */}
-      {/* <li>
-        <Link to={"/"}>Admin</Link>
-      </li> */}
+      <li>
+        <Link to={"/admin-dashboard"}>Admin</Link>
+      </li>
       {/* logout */}
       {/* <li>
       Logout
