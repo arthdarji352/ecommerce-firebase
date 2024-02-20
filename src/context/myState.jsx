@@ -32,7 +32,9 @@ function MyState({ children }) {
     getAllProductFunction();
   }, []);
   return (
-    <MyContext.Provider value={{ loading, setLoading, getAllProduct }}>
+    <MyContext.Provider
+      value={{ loading, setLoading, getAllProduct, getAllProductFunction }}
+    >
       {children}
     </MyContext.Provider>
   );

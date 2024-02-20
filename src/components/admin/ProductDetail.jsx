@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import myContext from "../../context/myContext";
 import { useContext } from "react";
 import Loader from "../loader/Loader";
@@ -6,7 +6,9 @@ import Loader from "../loader/Loader";
 const ProductDetail = () => {
   const context = useContext(myContext);
   const { loading, getAllProduct } = context;
-  // console.log(getAllProduct)
+
+  console.log(getAllProduct);
+  const navigate = useNavigate();
   return (
     <div>
       <div className="py-5 flex justify-between items-center">
@@ -101,8 +103,15 @@ const ProductDetail = () => {
                   <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 first-letter:uppercase ">
                     {date}
                   </td>
-                  <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-green-500 cursor-pointer "></td>
-                  <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer "></td>
+                  <td
+                    onClick={() => navigate(`/updateproduct/${id}`)}
+                    className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-green-500 cursor-pointer "
+                  >
+                    Edit
+                  </td>
+                  <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer ">
+                    Delete
+                  </td>
                 </tr>
               );
             })}
