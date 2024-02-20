@@ -34,16 +34,16 @@ const Login = () => {
         userLogin.email,
         userLogin.password
       );
-      console.log(users.user);
+      // console.log(users.user);
 
       try {
         const q = query(
           collection(fireDB, "user"),
           where("uid", "==", users?.user?.uid)
         );
-        console.log(q);
+        // console.log(q);
         const data = onSnapshot(q, (QuerySnapshot) => {
-          console.log(QuerySnapshot);
+          // console.log(QuerySnapshot);
           let user;
           QuerySnapshot.forEach((doc) => (user = doc.data()));
           console.log(user);
