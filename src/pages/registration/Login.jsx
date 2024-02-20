@@ -1,9 +1,79 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import myContext from "../../context/myContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import Loader from "../../components/loader/Loader";
+import toast from "react-hot-toast";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { auth, fireDB } from "../../firebase/FirebaseConfig";
 
 const Login = () => {
+  const context = useContext(myContext);
+  const { loading, setLoading } = context;
+
+  // navigate
+  const navigate = useNavigate();
+
+  // User Signup State
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: "",
+  });
+
+  const userLoginFunction = async () => {
+    // validation
+    if (userLogin.email === "" || userLogin.password === "") {
+      return toast.error("All Fields are required");
+    }
+
+    setLoading(true);
+    try {
+      const users = await signInWithEmailAndPassword(
+        auth,
+        userLogin.email,
+        userLogin.password
+      );
+      console.log(users.user);
+
+      try {
+        const q = query(
+          collection(fireDB, "user"),
+          where("uid", "==", users?.user?.uid)
+        );
+        console.log(q);
+        const data = onSnapshot(q, (QuerySnapshot) => {
+          console.log(QuerySnapshot);
+          let user;
+          QuerySnapshot.forEach((doc) => (user = doc.data()));
+          console.log(user);
+          localStorage.setItem("users", JSON.stringify(user));
+          setUserLogin({
+            email: "",
+            password: "",
+          });
+          toast.success("Login Successfully");
+          setLoading(false);
+          if (user.role === "user") {
+            navigate("/user-dashboard");
+          } else {
+            navigate("/admin-dashboard");
+          }
+        });
+        return () => data;
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      toast.error("Login Failed");
+    }
+  };
   return (
     <div className="flex justify-center items-center h-screen">
+      {loading && <Loader />}
       {/* Login Form  */}
       <div className="login_Form bg-pink-50 px-1 lg:px-8 py-6 border border-pink-100 rounded-xl shadow-md">
         {/* Top Heading  */}
@@ -17,6 +87,13 @@ const Login = () => {
         <div className="mb-3">
           <input
             type="email"
+            value={userLogin.email}
+            onChange={(e) => {
+              setUserLogin({
+                ...userLogin,
+                email: e.target.value,
+              });
+            }}
             placeholder="Email Address"
             className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200"
           />
@@ -26,6 +103,13 @@ const Login = () => {
         <div className="mb-5">
           <input
             type="password"
+            value={userLogin.password}
+            onChange={(e) => {
+              setUserLogin({
+                ...userLogin,
+                password: e.target.value,
+              });
+            }}
             placeholder="Password"
             className="bg-pink-50 border border-pink-200 px-2 py-2 w-96 rounded-md outline-none placeholder-pink-200"
           />
@@ -35,6 +119,7 @@ const Login = () => {
         <div className="mb-5">
           <button
             type="button"
+            onClick={userLoginFunction}
             className="bg-pink-500 hover:bg-pink-600 w-full text-white text-center py-2 font-bold rounded-md "
           >
             Login
