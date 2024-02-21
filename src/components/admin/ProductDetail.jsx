@@ -2,12 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import myContext from "../../context/myContext";
 import { useContext } from "react";
 import Loader from "../loader/Loader";
+import DeleteModal from "../modal/deleteModal";
 
 const ProductDetail = () => {
   const context = useContext(myContext);
   const { loading, getAllProduct } = context;
 
-  console.log(getAllProduct);
   const navigate = useNavigate();
   return (
     <div>
@@ -110,7 +110,7 @@ const ProductDetail = () => {
                     Edit
                   </td>
                   <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer ">
-                    Delete
+                    <DeleteModal productId={item.id}>Delete</DeleteModal>
                   </td>
                 </tr>
               );
