@@ -55,6 +55,7 @@ const AddProductPage = () => {
       year: "numeric",
     }),
   });
+  console.log(product.category);
 
   // Add Product Function
   const addProductFunction = async () => {
