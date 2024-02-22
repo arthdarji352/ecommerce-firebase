@@ -23,7 +23,7 @@ const Testimonial = () => {
                 <img
                   alt="testimonial"
                   className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-                  src="https://media.licdn.com/dms/image/D4D35AQGMiGUPuQlyhg/profile-framedphoto-shrink_400_400/0/1705641148396?e=1708434000&v=beta&t=AeVvLoTprapfLezZ1LIBetexMjZFadiVIEVez5AjRTU"
+                  src="https://banner2.cleanpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg"
                 />
                 <p className="leading-relaxed">
                   Edison bulb retro cloud bread echo park, helvetica stumptown
@@ -45,7 +45,7 @@ const Testimonial = () => {
                 <img
                   alt="testimonial"
                   className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-                  src="https://media.licdn.com/dms/image/D4D35AQGMiGUPuQlyhg/profile-framedphoto-shrink_400_400/0/1705641148396?e=1708434000&v=beta&t=AeVvLoTprapfLezZ1LIBetexMjZFadiVIEVez5AjRTU"
+                  src="https://banner2.cleanpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg"
                 />
                 <p className="leading-relaxed">
                   Edison bulb retro cloud bread echo park, helvetica stumptown
@@ -67,7 +67,7 @@ const Testimonial = () => {
                 <img
                   alt="testimonial"
                   className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-                  src="https://media.licdn.com/dms/image/D4D35AQGMiGUPuQlyhg/profile-framedphoto-shrink_400_400/0/1705641148396?e=1708434000&v=beta&t=AeVvLoTprapfLezZ1LIBetexMjZFadiVIEVez5AjRTU"
+                  src="https://banner2.cleanpng.com/20180329/zue/kisspng-computer-icons-user-profile-person-5abd85306ff7f7.0592226715223698404586.jpg"
                 />
                 <p className="leading-relaxed">
                   Edison bulb retro cloud bread echo park, helvetica stumptown

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { fireDB } from "../../firebase/FirebaseConfig";
+import Layout from "../../components/layout/Layout";
 import Loader from "../../components/loader/Loader";
 
 const categoryList = [
@@ -55,7 +56,7 @@ const AddProductPage = () => {
       year: "numeric",
     }),
   });
-  console.log(product.category);
+  // console.log(product.category);
 
   // Add Product Function
   const addProductFunction = async () => {
@@ -83,7 +84,7 @@ const AddProductPage = () => {
     }
   };
   return (
-    <div>
+    <Layout>
       <div className="flex justify-center items-center h-screen">
         {loading && <Loader />}
         {/* Login Form  */}
@@ -203,7 +204,7 @@ const AddProductPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
