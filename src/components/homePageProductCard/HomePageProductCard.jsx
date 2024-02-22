@@ -1,7 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import myContext from "../../context/myContext";
 import Loader from "../loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteFromCart } from "../../redux/cartSlice";
+import toast from "react-hot-toast";
 
 // productData
 const productData = [
@@ -92,6 +95,24 @@ const HomePageProductCard = () => {
   const { loading, getAllProduct } = context;
   const navigate = useNavigate();
 
+  const cartItems = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  const addCart = (item) => {
+    // console.log(item)
+    dispatch(addToCart(item));
+    toast.success("Add To Cart");
+  };
+
+  const deleteCart = (item) => {
+    dispatch(deleteFromCart(item));
+    toast.success("Delete From Cart");
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <div className="mt-10">
       {/* Heading  */}
@@ -128,9 +149,21 @@ const HomePageProductCard = () => {
                         ₹{price}
                       </h1>
                       <div className="flex justify-center ">
-                        <button className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
-                          Add TO Cart
-                        </button>
+                        {cartItems.some((p) => p.id === item.id) ? (
+                          <button
+                            onClick={() => deleteCart(item)}
+                            className=" bg-red-700 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold"
+                          >
+                            Delete From Cart
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => addCart(item)}
+                            className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold"
+                          >
+                            Add To Cart
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

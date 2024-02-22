@@ -1,9 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBox from "../searchBox/SearchBox";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const user = JSON.parse(localStorage.getItem("users"));
+
+  const cartItems = useSelector((state) => state.cart);
 
   const navigate = useNavigate();
 
@@ -55,13 +58,13 @@ const Navbar = () => {
       )}
       {/* Cart */}
       <li>
-        <Link to={"/cart"}></Link>
+        <Link to={"/cart"}>Cart({cartItems.length})</Link>
       </li>
     </ul>
   );
   return (
-    <div>
-      <nav className="bg-pink-600 sticky top-0">
+    <div className="sticky top-0">
+      <nav className="bg-pink-600 ">
         {/* main  */}
         <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
           {/* left  */}
