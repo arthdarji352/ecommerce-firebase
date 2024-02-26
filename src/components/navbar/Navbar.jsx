@@ -63,7 +63,7 @@ const Navbar = () => {
     </ul>
   );
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-0 z-10">
       <nav className="bg-pink-600 ">
         {/* main  */}
         <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
