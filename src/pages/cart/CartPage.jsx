@@ -7,7 +7,10 @@ import {
   incrementQuantity,
 } from "../../redux/cartSlice";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import BuyNowModal from "../../components/buyNowModal/BuyNowModal";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { fireDB } from "../../firebase/FirebaseConfig";
 
 const products = [
   {
@@ -72,11 +75,69 @@ const CartPage = () => {
   const cartItemTotal = cartItems
     .map((item) => item.quantity)
     .reduce((prevValue, currValue) => prevValue + currValue, 0);
-  console.log(cartItemTotal);
+  // console.log(cartItemTotal);
 
   const cartTotal = cartItems
     .map((item) => item.price * item.quantity)
     .reduce((prevValue, currValue) => prevValue + currValue, 0);
+
+  //Buy Now Function
+
+  // user
+  const user = JSON.parse(localStorage.getItem("users"));
+
+  const [addressInfo, setAddressInfo] = useState({
+    name: "",
+    address: "",
+    pincode: "",
+    mobileNumber: "",
+    time: Timestamp.now(),
+    date: new Date().toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }),
+  });
+
+  const buyNowFunction = () => {
+    // validation
+    if (
+      addressInfo.name === "" ||
+      addressInfo.address === "" ||
+      addressInfo.pincode === "" ||
+      addressInfo.mobileNumber === ""
+    ) {
+      return toast.error("All Fields are required");
+    }
+
+    // Order Info
+    const orderInfo = {
+      cartItems,
+      addressInfo,
+      email: user.email,
+      userid: user.uid,
+      status: "confirmed",
+      time: Timestamp.now(),
+      date: new Date().toLocaleString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric",
+      }),
+    };
+    try {
+      const orderRef = collection(fireDB, "order");
+      addDoc(orderRef, orderInfo);
+      setAddressInfo({
+        name: "",
+        address: "",
+        pincode: "",
+        mobileNumber: "",
+      });
+      toast.success("Order Placed Successfull");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Layout>
@@ -221,9 +282,15 @@ const CartPage = () => {
                 </dl>
                 <div className="px-2 pb-4 font-medium text-green-700">
                   <div className="flex gap-4 mb-6">
-                    <button className="w-full px-4 py-3 text-center text-gray-100 bg-pink-600 border border-transparent dark:border-gray-700 hover:border-pink-500 hover:text-pink-700 hover:bg-pink-100 rounded-xl">
-                      Buy Now
-                    </button>
+                    {user ? (
+                      <BuyNowModal
+                        addressInfo={addressInfo}
+                        setAddressInfo={setAddressInfo}
+                        buyNowFunction={buyNowFunction}
+                      />
+                    ) : (
+                      <Navigate to={"/login"} />
+                    )}
                   </div>
                 </div>
               </div>
