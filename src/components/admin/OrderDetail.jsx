@@ -3,7 +3,7 @@ import myContext from "../../context/myContext";
 
 const OrderDetail = () => {
   const context = useContext(myContext);
-  const { getAllOrder } = context;
+  const { getAllOrder, deleteOrder } = context;
 
   return (
     <div>
@@ -190,7 +190,10 @@ const OrderDetail = () => {
                           <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 first-letter:uppercase ">
                             {order.date}
                           </td>
-                          <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer ">
+                          <td
+                            onClick={() => deleteOrder(order.id)}
+                            className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer "
+                          >
                             Delete
                           </td>
                         </tr>
