@@ -20,7 +20,7 @@ const UserDashboard = () => {
   const user = JSON.parse(localStorage.getItem("users"));
 
   const context = useContext(myContext);
-  const { loading, deleteOrder } = context;
+  const { loading, deleteOrder, getAllOrder } = context;
 
   return (
     <Layout>

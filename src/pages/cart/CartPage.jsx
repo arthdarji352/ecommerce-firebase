@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import BuyNowModal from "../../components/buyNowModal/BuyNowModal";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -54,6 +55,7 @@ const products = [
 const CartPage = () => {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const deleteCart = (item) => {
     dispatch(deleteFromCart(item));
